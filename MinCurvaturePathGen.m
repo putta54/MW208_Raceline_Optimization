@@ -3,7 +3,7 @@
 %track data - first point repeated
 data = track_silverstone;
 
-% x and y data 
+% x,y and track width data 
 x =  data(:,1);
 y =  data(:,2);
 twr = data(:,3);
@@ -71,25 +71,31 @@ B = zeros(size(delx)).';
 
 % formation of H matrix (nxn)
 for i=2:n-1
+    
     % first row
     H(i-1,i-1) = H(i-1,i-1) + delx(i-1)^2         + dely(i-1)^2;
     H(i-1,i)   = H(i-1,i)   - 2*delx(i-1)*delx(i) - 2*dely(i-1)*dely(i);
     H(i-1,i+1) = H(i-1,i+1) + delx(i-1)*delx(i+1) + dely(i-1)*dely(i+1);
+    
     %second row
     H(i,i-1)   = H(i,i-1)   - 2*delx(i-1)*delx(i) - 2*dely(i-1)*dely(i);
     H(i,i)     = H(i,i )    + 4*delx(i)^2         + 4*dely(i)^2;
     H(i,i+1)   = H(i,i+1)   - 2*delx(i)*delx(i+1) - 2*dely(i)*dely(i+1);
+    
     % third row
     H(i+1,i-1) = H(i+1,i-1) + delx(i-1)*delx(i+1) + dely(i-1)*dely(i+1);
     H(i+1,i)   = H(i+1,i)   - 2*delx(i)*delx(i+1) - 2*dely(i)*dely(i+1);
     H(i+1,i+1) = H(i+1,i+1) + delx(i+1)^2         + dely(i+1)^2;
+    
 end
 
 % formation of B matrix (1xn)
 for i=2:n-1
+    
     B(1,i-1) = B(1,i-1) + 2*(xin(i+1)+xin(i-1)-2*xin(i))*delx(i-1) + 2*(yin(i+1)+yin(i-1)-2*yin(i))*dely(i-1);
     B(1,i)   = B(1,i)   - 4*(xin(i+1)+xin(i-1)-2*xin(i))*delx(i)   - 4*(yin(i+1)+yin(i-1)-2*yin(i))*dely(i);
     B(1,i+1) = B(1,i+1) + 2*(xin(i+1)+xin(i-1)-2*xin(i))*delx(i+1) + 2*(yin(i+1)+yin(i-1)-2*yin(i))*dely(i+1);
+    
 end
 
 % define constraints
@@ -109,7 +115,7 @@ options = optimoptions('quadprog','Display','iter');
 
 %% Plotting results
 
-% co-ordinates for result curve
+% co-ordinates for the resultant curve
 xresMCP = zeros(size(xt));
 yresMCP = zeros(size(xt));
 
