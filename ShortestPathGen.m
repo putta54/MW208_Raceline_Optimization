@@ -71,10 +71,12 @@ B = zeros(size(delx)).';
 
 % formation of H matrix (nxn)
 for i=1:n-1
+    
     H(i,i)     = H(i,i)     + delx(i)^2          + dely(i)^2;
     H(i+1,i)   = H(i+1,i)   - delx(i)*delx(i+1)  - dely(i)*dely(i+1);
     H(i,i+1)   = H(i,i+1)   - delx(i)*delx(i+1)  - dely(i)*dely(i+1);
     H(i+1,i+1) = H(i+1,i+1) + delx(i+1)^2        + dely(i+1)^2;
+    
 end
 
 % formation of B matrix (1xn)
