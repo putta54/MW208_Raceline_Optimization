@@ -3,7 +3,7 @@
 % track data - first point repeated
 data = track_silverstone;
 
-% x and y data 
+% x, y and track width data 
 x =  data(:,1);
 y =  data(:,2);
 twr = data(:,3);
@@ -100,7 +100,7 @@ options = optimoptions('quadprog','Display','iter');
 
 %% Plotting results
 
-% co-ordinates for result curve
+% co-ordinates for the resultant curve
 xresSP = zeros(size(xt));
 yresSP = zeros(size(xt));
 
