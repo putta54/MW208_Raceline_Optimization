@@ -1,6 +1,6 @@
 %% Input data form
 
-% track data form = [x y track_width_to_the_right track_width_to_the_left]
+% track data form = [x y track_width_to_the_right(+ve) track_width_to_the_left(+ve)]
 % name = 'name_of_track'
 
 function [xresSP, yresSP] = func_SP(track,name)
@@ -15,15 +15,17 @@ y =  data(:,2);
 twr = data(:,3);
 twl = data(:,4);
 
-% interpolate data to get finer curve
-t = [0; cumsum(hypot(diff(x),diff(y)))];
-t1 = linspace(0,t(end),1500);
-xt = spline(t,x,t1)';
-yt = spline(t,y,t1)';
-twrt = spline(t,twr,t1)';
-twlt = spline(t,twl,t1)';
-% xt = x;
-% yt = y;
+% interpolate data to get finer curve with equal distances between each segment
+pathXY = [x y];
+stepLengths = sqrt(sum(diff(pathXY,[],1).^2,2));
+stepLengths = [0; stepLengths]; % add the starting point
+cumulativeLen = cumsum(stepLengths);
+finalStepLocs = linspace(0,cumulativeLen(end), 1500);
+finalPathXY = interp1(cumulativeLen, pathXY, finalStepLocs);
+xt = finalPathXY(:,1);
+yt = finalPathXY(:,2);
+twrt = interp1(cumulativeLen, twr, finalStepLocs,'spline')';
+twlt = interp1(cumulativeLen, twl, finalStepLocs,'spline')';
 
 % normal direction for each vertex
 dx = gradient(xt);
