@@ -141,6 +141,7 @@ for i = 1:numel(xt)
     yresMCP(i) = yin(i)+resMCP(i)*dely(i);
 end
 
+% plot minimum curvature trajectory
 figure
 plot(xresMCP,yresMCP,'color','r','linew',2)
 hold on
@@ -163,4 +164,4 @@ axis equal
 
 xlabel('x(m)','fontweight','bold','fontsize',14)
 ylabel('y(m)','fontweight','bold','fontsize',14)
-title(sprintf(name,'%s - Minimum Curvature Trajectory'),'fontsize',16)
+title(sprintf(name,'- Minimum Curvature Trajectory'),'fontsize',16)
