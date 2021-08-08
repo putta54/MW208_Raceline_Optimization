@@ -1,13 +1,12 @@
 %% Data form
 
 % INPUT DATA
-% track data form = [x y track_width_to_the_right track_width_to_the_left]
 % x = x-coordinate of trajectory
 % y = y-coordinate of trajectory
 % name = 'name_of_track'
 % m = mass
 % ftmax = max traction (N)
-% fbmax = max braking (N)
+% fbmax = max braking (-ve)(N)
 % fnmax = max cornering (N)
 
 % OUTPUT DATA
