@@ -1,25 +1,40 @@
+%% Data form
+
+% INPUT DATA
+% track data form = [x y track_width_to_the_right track_width_to_the_left]
+% x = x-coordinate of trajectory
+% y = y-coordinate of trajectory
+% name = 'name_of_track'
+% m = mass
+% ftmax = max traction (N)
+% fbmax = max braking (N)
+% fnmax = max cornering (N)
+
+% OUTPUT DATA
+% velProf = velocity profile of the given track
+
+function [velProf] = func_velProf(x,y,name,m,ftmax,fbmax,fnmax)
 %% Initialization
 
-n = numel(delx);
-accel = zeros(size(delx));
-decel = zeros(size(delx));
-m = 750;
-ftmax = 16*m; % traction max
-fbmax = -18*m; % braking max
-fnmax = 30*m; % cornering max
+n = numel(x);
+accel = zeros(size(x)); % acceleration profile
+decel = zeros(size(x)); % deceleration profile
+% ftmax = ftmax*m; % traction max
+% fbmax = -fbmax*m; % braking max
+% fnmax = fnmax*m; % cornering max
 drag = 0.0021*m; % drag
 
 %% Segment length
 
-len = zeros(size(delx));
+len = zeros(size(x));
 
 for i = 2:n
-    len(i) = len(i-1)+sqrt((xresMCP(i)-xresMCP(i-1))^2+(yresMCP(i)-yresMCP(i-1))^2);
+    len(i) = len(i-1)+sqrt((x(i)-x(i-1))^2+(y(i)-y(i-1))^2);
 end
 
-%% curvature
+%% Curvature
 
-[~,R,~] = curvature([xresMCP yresMCP]);
+[~,R,~] = curvature([x y]);
 K = 1./R;
 K(1) = 0;
 K(end) = 0;
@@ -106,6 +121,15 @@ for i = numel(locs):-1:1
     end
 end
 
+velProf = min(accel,decel);
+
+%% Lap Time calcluation
+
+time = zeros(size(x));
+for i = 2:numel(x)
+    acc = (velProf(i)^2-velProf(i-1)^2)/(2*(len(i)-len(i-1)));
+    time(i) = time(i-1) + (velProf(i)-velProf(i-1))/acc;
+end
 
 %% Plot Velocity Profile
 
@@ -114,10 +138,10 @@ end
 % hold on
 % plot(decel)
 
-velProf = min(accel,decel);
+figure
 hold on
 plot(len,velProf*3.6,'LineWidth',2)
 grid on
 xlabel('s(m)','fontweight','bold','fontsize',14)
 ylabel('kmph','fontweight','bold','fontsize',14)
-title('Silverstone, UK (F1) - Velocity Profile - Min Curvavture Trajectory','fontsize',15)
+title(sprintf('%s - Velocity Profile\nLap Time = %.2fs',name,time(end)),'fontsize',16)
