@@ -129,6 +129,10 @@ figure
 plot(xresSP,yresSP,'color','r','linew',2)
 hold on
 
+% plot starting line
+plot([xin(1) xout(1)], [yin(1) yout(1)],'color','b','linew',2)
+% plot([xin(2) xout(2)], [yin(2) yout(2)],'color','k','linew',2)
+
 % plot reference line
 plot(x,y,'--')
 hold on
