@@ -1,7 +1,13 @@
+%% Input data form
+
+% track data form = [x y track_width_to_the_right track_width_to_the_left]
+% name = 'name_of_track'
+
+function [xresSP, yresSP] = func_SP(track,name)
 %% Processing  track data
 
 % track data - first point repeated
-data = track_silverstone;
+data = track;
 
 % x, y and track width data 
 x =  data(:,1);
@@ -44,10 +50,15 @@ end
 
 % plot inner track
 plot(xin,yin,'color','b','linew',2)
+
 % plot outer track
 plot(xout,yout,'color','r','linew',2)
 hold off
 axis equal
+
+xlabel('x(m)','fontweight','bold','fontsize',14)
+ylabel('y(m)','fontweight','bold','fontsize',14)
+title(sprintf(name),'fontsize',16)
 
 % % plot segments
 % figure
@@ -60,7 +71,7 @@ axis equal
 delx = xout - xin;
 dely = yout - yin;
 
-%% Matrix Definition 
+%% Matrix Definition (H and B)
 
 % number of segments
 n = numel(delx);
@@ -85,17 +96,17 @@ for i=1:n-1
     B(1,i+1) = B(1,i+1) + 2*(xin(i+1)-xin(i))*delx(i+1) + 2*(yin(i+1)-yin(i))*dely(i+1);
 end
 
-% define constraints
+% define boundary constraints
 lb = zeros(n,1);
 ub = ones(size(lb));
 
-% if start and end points are the same
+% forcing start and end points to be the same
 Aeq      =   zeros(1,n);
 Aeq(1)   =   1;
 Aeq(end) =   -1;
 beq      =   0;
     
-%% Solver
+%% QP Solver
 
 options = optimoptions('quadprog','Display','iter');
 [resSP,fval,exitflag,output] = quadprog(2*H,B,[],[],Aeq,beq,lb,ub,[],options);
@@ -110,7 +121,8 @@ for i = 1:numel(xt)
     xresSP(i) = xin(i)+resSP(i)*delx(i);
     yresSP(i) = yin(i)+resSP(i)*dely(i);
 end
-    
+
+% plot shortest path
 figure
 plot(xresSP,yresSP,'color','r','linew',2)
 hold on
@@ -122,11 +134,11 @@ hold on
 % plot inner track
 plot(xin,yin,'color','k')
 
-%plot outer track
+% plot outer track
 plot(xout,yout,'color','k')
 hold off
 axis equal
 
 xlabel('x(m)','fontweight','bold','fontsize',14)
 ylabel('y(m)','fontweight','bold','fontsize',14)
-title('Silverstone, UK (F1) - Shortest Path Trajectory','fontsize',16)
+title(sprintf(name,'- Shortest Path Trajectory'),'fontsize',16)
