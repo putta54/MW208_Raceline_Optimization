@@ -163,4 +163,4 @@ axis equal
 
 xlabel('x(m)','fontweight','bold','fontsize',14)
 ylabel('y(m)','fontweight','bold','fontsize',14)
-title(sprintf(name,'- Minimum Curvature Trajectory'),'fontsize',16)
+title(sprintf(name,'%s - Minimum Curvature Trajectory'),'fontsize',16)
