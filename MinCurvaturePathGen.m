@@ -1,7 +1,18 @@
+%% Data form
+
+% INPUT DATA
+% track data form = [x y track_width_to_the_right track_width_to_the_left]
+% name = 'name_of_track'
+
+% OUTPUT DATA
+% xresMCP = x-coordinates of final trajectory
+% yresMCP = y-coordinates of final trajectory
+
+function [xresMCP, yresMCP] = func_MCP(track,name)
 %% Processing  track data
 
-%track data - first point repeated
-data = track_silverstone;
+% track data - first point repeated
+data = track;
 
 % x,y and track width data 
 x =  data(:,1);
@@ -9,15 +20,17 @@ y =  data(:,2);
 twr = data(:,3);
 twl = data(:,4);
 
-% interpolate data to get finer curve
-t = [0; cumsum(hypot(diff(x),diff(y)))];
-t1 = linspace(0,t(end),1500);
-xt = spline(t,x,t1)';
-yt = spline(t,y,t1)';
-twrt = spline(t,twr,t1)';
-twlt = spline(t,twl,t1)';
-% xt = x;
-% yt = y;
+% interpolate data to get finer curve with equal distances between each segment
+pathXY = [x y];
+stepLengths = sqrt(sum(diff(pathXY,[],1).^2,2));
+stepLengths = [0; stepLengths]; % add the starting point
+cumulativeLen = cumsum(stepLengths);
+finalStepLocs = linspace(0,cumulativeLen(end), 1500);
+finalPathXY = interp1(cumulativeLen, pathXY, finalStepLocs);
+xt = finalPathXY(:,1);
+yt = finalPathXY(:,2);
+twrt = interp1(cumulativeLen, twr, finalStepLocs,'spline')';
+twlt = interp1(cumulativeLen, twl, finalStepLocs,'spline')';
 
 % normal direction for each vertex
 dx = gradient(xt);
@@ -48,6 +61,10 @@ plot(xin,yin,'color','b','linew',2)
 plot(xout,yout,'color','r','linew',2)
 hold off
 axis equal
+
+xlabel('x(m)','fontweight','bold','fontsize',14)
+ylabel('y(m)','fontweight','bold','fontsize',14)
+title(sprintf(name),'fontsize',16)
 
 % % plot segments
 % figure
@@ -146,4 +163,4 @@ axis equal
 
 xlabel('x(m)','fontweight','bold','fontsize',14)
 ylabel('y(m)','fontweight','bold','fontsize',14)
-title('Silverstone, UK (F1) - Minimum Curvature Trajectory','fontsize',16)
+title(sprintf(name,'- Minimum Curvature Trajectory'),'fontsize',16)
