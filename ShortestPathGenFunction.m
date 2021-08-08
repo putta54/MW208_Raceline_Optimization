@@ -143,4 +143,4 @@ axis equal
 
 xlabel('x(m)','fontweight','bold','fontsize',14)
 ylabel('y(m)','fontweight','bold','fontsize',14)
-title(sprintf(name,'- Shortest Path Trajectory'),'fontsize',16)
+title(sprintf(name,'%s - Shortest Path Trajectory'),'fontsize',16)
