@@ -8,6 +8,8 @@
 % ftmax = max traction (N)
 % fbmax = max braking (-ve)(N)
 % fnmax = max cornering (N)
+% Values I had taken
+% m = 740, ftmax = 16*740, fbmax = -18*740, fnmax = 30*740
 
 % OUTPUT DATA
 % velProf = velocity profile of the given track
