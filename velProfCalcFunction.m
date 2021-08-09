@@ -1,6 +1,6 @@
-%% Data form
 % Install following Add-On for curvaure function to work
 % https://in.mathworks.com/matlabcentral/fileexchange/69452-curvature-of-a-1d-curve-in-a-2d-or-3d-space 
+%% Data form
 % INPUT DATA
 % x = x-coordinate of trajectory
 % y = y-coordinate of trajectory
