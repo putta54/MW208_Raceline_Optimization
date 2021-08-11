@@ -1,9 +1,15 @@
-%% Input data form
+%% Data form
 
+% INPUT DATA
+% first point is repeated
 % track data form = [x y track_width_to_the_right(+ve) track_width_to_the_left(+ve)]
 % name = 'name_of_track'
 
-function [xresSP, yresSP] = func_SP(track,name)
+% OUTPUT DATA
+% trajSP - [x-coordinate of traj y-coordinate of traj]
+% trackData - [x-ref y-ref xin yin xout yout]
+
+function [trajSP, trackData] = func_SP(track,name)
 %% Processing  track data
 
 % track data - first point repeated
@@ -16,11 +22,15 @@ twr = data(:,3);
 twl = data(:,4);
 
 % interpolate data to get finer curve with equal distances between each segment
+
+% higher no. of segments causes trajectory to follow the reference line
+nseg = 1500;
+
 pathXY = [x y];
 stepLengths = sqrt(sum(diff(pathXY,[],1).^2,2));
 stepLengths = [0; stepLengths]; % add the starting point
 cumulativeLen = cumsum(stepLengths);
-finalStepLocs = linspace(0,cumulativeLen(end), 1500);
+finalStepLocs = linspace(0,cumulativeLen(end), nseg);
 finalPathXY = interp1(cumulativeLen, pathXY, finalStepLocs);
 xt = finalPathXY(:,1);
 yt = finalPathXY(:,2);
@@ -72,6 +82,8 @@ title(sprintf(name),'fontsize',16)
 % form delta matrices
 delx = xout - xin;
 dely = yout - yin;
+
+trackData = [xt yt xin yin xout yout];
 
 %% Matrix Definition (H and B)
 
@@ -134,7 +146,7 @@ plot([xin(1) xout(1)], [yin(1) yout(1)],'color','b','linew',2)
 % plot([xin(2) xout(2)], [yin(2) yout(2)],'color','k','linew',2)
 
 % plot reference line
-plot(x,y,'--')
+plot(xt,yt,'--')
 hold on
 
 % plot inner track
@@ -148,3 +160,5 @@ axis equal
 xlabel('x(m)','fontweight','bold','fontsize',14)
 ylabel('y(m)','fontweight','bold','fontsize',14)
 title(sprintf(name,'%s - Shortest Path Trajectory'),'fontsize',16)
+
+trajSP = [xresSP yresSP];
