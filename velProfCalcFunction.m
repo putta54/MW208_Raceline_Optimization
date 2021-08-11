@@ -1,3 +1,5 @@
+% Install following Add-On for curvaure function to work
+% https://in.mathworks.com/matlabcentral/fileexchange/69452-curvature-of-a-1d-curve-in-a-2d-or-3d-space 
 %% Data form
 
 % INPUT DATA
@@ -7,6 +9,8 @@
 % fbmax = max braking (N)
 % fnmax = max cornering (N)
 % trackData - [x-ref y-ref xin yin xout yout]
+% Values I had taken
+% m = 740, ftmax = 16*740, fbmax = -18*740, fnmax = 30*740
 
 % OUTPUT DATA
 % velProf = velocity profile of the given track
