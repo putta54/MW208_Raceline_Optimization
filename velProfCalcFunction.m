@@ -1,23 +1,21 @@
-% Install following Add-On for curvaure function to work
-% https://in.mathworks.com/matlabcentral/fileexchange/69452-curvature-of-a-1d-curve-in-a-2d-or-3d-space 
 %% Data form
+
 % INPUT DATA
-% x = x-coordinate of trajectory
-% y = y-coordinate of trajectory
 % name = 'name_of_track'
 % m = mass
 % ftmax = max traction (N)
-% fbmax = max braking (-ve)(N)
+% fbmax = max braking (N)
 % fnmax = max cornering (N)
-% Values I had taken
-% m = 740, ftmax = 16*740, fbmax = -18*740, fnmax = 30*740
+% trackData - [x-ref y-ref xin yin xout yout]
 
 % OUTPUT DATA
 % velProf = velocity profile of the given track
 
-function [velProf] = func_velProf(x,y,name,m,ftmax,fbmax,fnmax)
+function [velProf] = func_velProf(traj,name,m,ftmax,fbmax,fnmax,trackData)
 %% Initialization
 
+x = traj(:,1);
+y= traj(:,2);
 n = numel(x);
 accel = zeros(size(x)); % acceleration profile
 decel = zeros(size(x)); % deceleration profile
@@ -133,7 +131,7 @@ for i = 2:numel(x)
     time(i) = time(i-1) + (velProf(i)-velProf(i-1))/acc;
 end
 
-%% Plot Velocity Profile
+%% Plot Velocity Profile (v vs s)
 
 % figure
 % plot(accel)
@@ -146,4 +144,39 @@ plot(len,velProf*3.6,'LineWidth',2)
 grid on
 xlabel('s(m)','fontweight','bold','fontsize',14)
 ylabel('kmph','fontweight','bold','fontsize',14)
+title(sprintf('%s - Velocity Profile\nLap Time = %.2fs',name,time(end)),'fontsize',16)
+
+%% Plot velocity profile onto trajectory
+
+figure
+plot(traj(:,1),traj(:,2),'color','w','linew',1)
+hold on
+
+% plot starting line
+plot([trackData(1,3) trackData(1,5)], [trackData(1,4) trackData(1,6)],'color','b','linew',2)
+% plot([xin(2) xout(2)], [yin(2) yout(2)],'color','k','linew',2)
+
+% plot reference line
+plot(trackData(:,1),trackData(:,2),'--')
+hold on
+
+% plot inner track
+plot(trackData(:,3),trackData(:,4),'color','k','Linewidth',0.2)
+
+%plot outer track
+plot(trackData(:,5),trackData(:,6),'color','k','Linewidth',0.2)
+
+scatter(traj(:,1),traj(:,2),5,velProf,'filled')
+colormap('parula');
+colBar = colorbar('eastoutside');
+colBar.Label.String = "Velocity [m/s]";
+xlabel('X [m]');
+ylabel('Y [m]');
+% title(['Best Lap Velocity-Curvature Optimization on ',testName],['Iteration: ',num2str(videoSet{end,2}),' | Curvature: k=',num2str(videoSet{end,3}), '[1/m] | Minimum Lap Time: ',num2str(minTLap), '[s]']);
+axis equal;
+hold off;
+
+
+xlabel('x(m)','fontweight','bold','fontsize',14)
+ylabel('y(m)','fontweight','bold','fontsize',14)
 title(sprintf('%s - Velocity Profile\nLap Time = %.2fs',name,time(end)),'fontsize',16)
