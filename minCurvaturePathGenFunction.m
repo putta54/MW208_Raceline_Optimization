@@ -9,7 +9,7 @@
 % trajSP - [x-coordinate of traj y-coordinate of traj]
 % trackData - [x-ref y-ref xin yin xout yout]
 
-function [trajMCP, trackData] = func_MCP(track,name)
+function [trajMCP, trackData] = minCurvaturePathGenFunction(track,name)
 %% Processing  track data
 
 % track data - first point repeated
