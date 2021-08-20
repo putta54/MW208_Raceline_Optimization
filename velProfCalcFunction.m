@@ -15,7 +15,7 @@
 % OUTPUT DATA
 % velProf = velocity profile of the given track
 
-function [velProf] = func_velProf(traj,name,m,ftmax,fbmax,fnmax,trackData)
+function [velProf] = velProfCalcFunction(traj,name,m,ftmax,fbmax,fnmax,trackData)
 %% Initialization
 
 x = traj(:,1);
