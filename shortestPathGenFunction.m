@@ -9,7 +9,7 @@
 % trajSP - [x-coordinate of traj y-coordinate of traj]
 % trackData - [x-ref y-ref xin yin xout yout]
 
-function [trajSP, trackData] = func_SP(track,name)
+function [trajSP, trackData] = shortestPathGenFunction(track,name)
 %% Processing  track data
 
 % track data - first point repeated
