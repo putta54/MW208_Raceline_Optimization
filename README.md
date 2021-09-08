@@ -33,6 +33,7 @@ These intermediate velocity profiles are generated according to specific rules d
 Finally, lap times were calculated from the velocity and length vectors in order to validate my results with actual data.
 
 Lap Time Silverstone, UK (F1) [calculated] - 96.6s -- Current Lap record - 90s
+
 Lap Time Spa, Belgium (F1) [calculated] - 109s -- Current lap record - 106s
 
 As it was previously discussed, the literature mentioned in this section has some errors in the critical velocity and velocity iteration formulae. I have corrected them in my implementation. I have also included aerodynamics effects for traction and braking by inserting a -v^2 term within the equations. Since the velocities are really high in F1, aerodynamics drag cannot be neglected.
