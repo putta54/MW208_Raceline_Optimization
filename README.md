@@ -1,5 +1,6 @@
-# MW208_Raceline_Optimization
+# MW208 Raceline Optimization
 <Desc of proj>
+  
 ### **Concept**
 
 My main idea was similar to Jakeb's: first, create a minimum curvature trajectory and then develop a velocity profile based around it. This method is generally used by almost every paper written on this topic, at least as a starting point. I also calculated the velocity profile of the shortest path around the given track to show how bad the lap times are for it compared to the min curvature one. I also validated most of my results with data and literature I found online.
