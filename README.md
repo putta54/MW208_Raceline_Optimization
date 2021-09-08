@@ -14,10 +14,10 @@ I converted this entire subject into a quadratic programming (QP) problem and so
 As soon as the solver is executed, it automatically outputs the results, making the solving time almost negligible. It usually takes around 11-12 iterations to find the result. Unfortunately, quadprog doesn't have the functionality to output the result of every iteration, making me incapable of rendering the really cool animated GIFs.
 
 Some of the drawbacks and improvements to my method have been mentioned in this paper [Minimum curvature trajectory planning and control for an autonomous race car](https://www.tandfonline.com/doi/abs/10.1080/00423114.2019.1631455?journalCode=nvsd20). One critical simplifying assumption I made was neglecting the 2x'y' term in my curvature definition. This leads to a slightly suboptimal solution but significantly reduces the effort for calculating the H and B matrices. One improvement would be to use an iterative QP routine that replaces the reference line with the solution of the previous QP iteration.
-
-#### _**Images**_
-
-[Shortest Path - Silverstone](https://user-images.githubusercontent.com/58664908/128596618-575a2a3c-70fd-49e1-820d-698fe9b1d8b0.png) --- [Minimum curvature - Silverstone](https://user-images.githubusercontent.com/58664908/128598833-c99c9c31-b9b9-4988-aa61-ef6dd28a60c9.png)
+  
+Shortest Path Trajectory |  Minimum Curvature Trajectory 
+:-------------------------:|:-------------------------:
+<img src="https://user-images.githubusercontent.com/58664908/128596618-575a2a3c-70fd-49e1-820d-698fe9b1d8b0.png" width=100% height=100%>|<img src="https://user-images.githubusercontent.com/58664908/128598833-c99c9c31-b9b9-4988-aa61-ef6dd28a60c9.png" width=100% height=100%>
 
 For comparison - [Raceline uploaded by TUMFTM for Silverstone track](https://user-images.githubusercontent.com/58664908/128598878-c3997de2-ea97-4d82-a775-bd9cfa0a177a.png)
 
@@ -32,18 +32,17 @@ These intermediate velocity profiles are generated according to specific rules d
 
 Finally, lap times were calculated from the velocity and length vectors in order to validate my results with actual data.
 
-Lap Time Silverstone, UK (F1) [calculated] - 96.6s -- Current Lap record - 90s
-
+Lap Time Silverstone, UK (F1) [calculated] - 96.6s -- Current Lap record - 90s\
 Lap Time Spa, Belgium (F1) [calculated] - 109s -- Current lap record - 106s
 
 As it was previously discussed, the literature mentioned in this section has some errors in the critical velocity and velocity iteration formulae. I have corrected them in my implementation. I have also included aerodynamics effects for traction and braking by inserting a -v^2 term within the equations. Since the velocities are really high in F1, aerodynamics drag cannot be neglected.
 
-#### _**Images**_
-[Velocity Profile for min curvature trajectory of Silverstone track](https://user-images.githubusercontent.com/58664908/128600338-c50d12c0-2b78-4a3e-b5f0-5addf029422a.png)
-
+Velocity Profile of Silverstone track | Velocity Track Map of Silverstone track
+:-------------------------:|:-------------------------:
+<img src="https://user-images.githubusercontent.com/58664908/132526875-029ec40b-b303-421a-b602-9892c41e65f6.png" width=100% height=100%>|<img src="https://user-images.githubusercontent.com/58664908/132527879-a54d3556-4485-4eea-b9a3-eb8375a99246.png" width=100% height=100%>
 
 ### **Notes**
-
+  
 Most of the track data I tested was from this Github repository, [Race Track Database](https://github.com/TUMFTM/racetrack-database). The data is available in a neat format with the x and y coordinates in the first two columns and the left and right track widths on the other two. Currently, the only animations that I have are for a marker moving along the trajectory.  I am working on adding a velocity component to that. 
 
 I will upload the code for this project on my Github repository with the appropriate comments and documentation to increase clarity.
