@@ -43,8 +43,6 @@ Velocity Profile of Silverstone track | Velocity Track Map of Silverstone track
 
 ### **Notes**
   
-Most of the track data I tested was from this Github repository, [Race Track Database](https://github.com/TUMFTM/racetrack-database). The data is available in a neat format with the x and y coordinates in the first two columns and the left and right track widths on the other two. Currently, the only animations that I have are for a marker moving along the trajectory.  I am working on adding a velocity component to that. 
-
-I will upload the code for this project on my Github repository with the appropriate comments and documentation to increase clarity.
+Most of the track data I tested was from this Github repository, [Race Track Database](https://github.com/TUMFTM/racetrack-database). The data is available in a neat format with the x and y coordinates in the first two columns and the left and right track widths on the other two.
 
 Any feedback or suggestions are welcome!
