@@ -10,12 +10,12 @@
 % fnmax = max cornering (N)
 % trackData - [x-ref y-ref xin yin xout yout]
 % Values I had taken
-% m = 740, ftmax = 16*740, fbmax = -18*740, fnmax = 30*740
+% m = 740, ftmax = 16, fbmax = -18, fnmax = 30
 
 % OUTPUT DATA
 % velProf = velocity profile of the given track
 
-function [velProf] = velProfCalcFunction(traj,name,m,ftmax,fbmax,fnmax,trackData)
+function [velProf,len] = velProfCalcFunction(traj,name,m,ftmax,fbmax,fnmax,trackData)
 %% Initialization
 
 x = traj(:,1);
@@ -23,9 +23,9 @@ y= traj(:,2);
 n = numel(x);
 accel = zeros(size(x)); % acceleration profile
 decel = zeros(size(x)); % deceleration profile
-% ftmax = ftmax*m; % traction max
-% fbmax = -fbmax*m; % braking max
-% fnmax = fnmax*m; % cornering max
+ftmax = ftmax*m; % traction max
+fbmax = -fbmax*m; % braking max
+fnmax = fnmax*m; % cornering max
 drag = 0.0021*m; % drag
 
 %% Segment length
