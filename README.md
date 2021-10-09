@@ -42,6 +42,9 @@ As it was previously discussed, the literature mentioned in this section has som
 Velocity Profile of Silverstone track | Velocity Track Map of Silverstone track
 :-------------------------:|:-------------------------:
 <img src="https://user-images.githubusercontent.com/58664908/132526875-029ec40b-b303-421a-b602-9892c41e65f6.png" width=100% height=100%>|<img src="https://user-images.githubusercontent.com/58664908/132527879-a54d3556-4485-4eea-b9a3-eb8375a99246.png" width=100% height=100%>
+  
+### **Vehicle path tracking using Simulink**
+  //to be added
 
 ### **Notes**
   
