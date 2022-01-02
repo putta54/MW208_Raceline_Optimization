@@ -44,8 +44,11 @@ Velocity Profile of Silverstone track | Velocity Track Map of Silverstone track
 <img src="https://user-images.githubusercontent.com/58664908/132526875-029ec40b-b303-421a-b602-9892c41e65f6.png" width=100% height=100%>|<img src="https://user-images.githubusercontent.com/58664908/132527879-a54d3556-4485-4eea-b9a3-eb8375a99246.png" width=100% height=100%>
   
 ### **Vehicle path tracking using Simulink**
-  //to be added
-
+<img src="https://user-images.githubusercontent.com/58664908/147874306-bdd48401-05a6-4731-b02f-087e0671b587.png" width=100% height=100%>
+  
+This Simulink model extends the previous point mass model into a 3DOF one using the Stanley control methodology and various pre-built blocks in Simulink. This model was built by Veer Alakshendra, the author and mentor of this project.
+  
+Unfortunately, this model wasn't working correctly on my system, and hence I am not adding it to this repository.
 ### **Notes**
   
 Most of the track data I tested was from this Github repository, [Race Track Database](https://github.com/TUMFTM/racetrack-database). The data is available in a neat format with the x and y coordinates in the first two columns and the left and right track widths on the other two.
